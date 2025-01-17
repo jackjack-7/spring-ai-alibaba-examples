@@ -42,7 +42,7 @@ public class NameMasterAgent {
 
 	private final ChatClient chatClient;
 
-	private final ChatClient recommendClient;
+//	private final ChatClient recommendClient;
 
 	public NameMasterAgent(ChatClient.Builder modelBuilder, VectorStore vectorStore, ChatMemory chatMemory) {
 
@@ -57,6 +57,11 @@ public class NameMasterAgent {
 						你也能够
 						如果需要，您可以调用相应函数辅助完成。。
 						你通常会从国学典籍开始，并根据不断与客户沟通的过程，逐渐帮客户起到他们满意的名字。
+						在回复的最后，生成2个给用户建议推荐问法，输出的格式为：
+						[推荐问法1,推荐问法2]
+						以下是推荐问法举例：
+						[我想要好听的名字,我想要寓意好的名字]
+						[我想要跟某个明星有关的名字,我想要跟某个城市有关的名字]
 						请讲中文。
 						今天的日期是 {current_date}.
 					""")
@@ -64,7 +69,7 @@ public class NameMasterAgent {
 						new PromptChatMemoryAdvisor(chatMemory), // Chat Memory
 						// new VectorStoreChatMemoryAdvisor(vectorStore)),
 					
-						new QuestionAnswerAdvisor(vectorStore, SearchRequest.defaults()), // RAG
+//						new QuestionAnswerAdvisor(vectorStore, SearchRequest.defaults()), // RAG
 						// new QuestionAnswerAdvisor(vectorStore, SearchRequest.defaults()
 						// 	.withFilterExpression("'documentType' == 'terms-of-service' && region in ['EU', 'US']")),
 						
@@ -74,33 +79,33 @@ public class NameMasterAgent {
 
 				.build();
 
-		this.recommendClient = modelBuilder
-				.defaultSystem("""
-						你是一个给新生儿起名字的国学大师，你正在面向你的客户，帮你的客户给他们的宝宝起名字。
-						你需要根据历史的聊天记录，以你的专业，给客户推荐一些起名字的思路。
-						你能够从国学典籍、名字音律、相关城市、历史名人、当代明星等方面获取灵感，给客户的宝宝起符合客户需求，并且寓意好、好听的名字。
-						你也能够
-						如果需要，您可以调用相应函数辅助完成。
-						每次给2个建议，建议用英文的逗号分隔。建议输出的格式为：
-						...
-						建议1,建议2
-						...
-						请讲中文。
-						今天的日期是 {current_date}.
-					""")
-				.defaultAdvisors(
-						new PromptChatMemoryAdvisor(chatMemory), // Chat Memory
-						// new VectorStoreChatMemoryAdvisor(vectorStore)),
-
-						new QuestionAnswerAdvisor(vectorStore, SearchRequest.defaults()), // RAG
-						// new QuestionAnswerAdvisor(vectorStore, SearchRequest.defaults()
-						// 	.withFilterExpression("'documentType' == 'terms-of-service' && region in ['EU', 'US']")),
-
-						new LoggingAdvisor())
-
-				.defaultFunctions("getBookingDetails", "changeBooking", "cancelBooking") // FUNCTION CALLING
-
-				.build();
+//		this.recommendClient = modelBuilder
+//				.defaultSystem("""
+//						你是一个给新生儿起名字的国学大师，你正在面向你的客户，帮你的客户给他们的宝宝起名字。
+//						你需要根据历史的聊天记录，以你的专业，给客户推荐一些起名字的思路。
+//						你能够从国学典籍、名字音律、相关城市、历史名人、当代明星等方面获取灵感，给客户的宝宝起符合客户需求，并且寓意好、好听的名字。
+//						你也能够
+//						如果需要，您可以调用相应函数辅助完成。
+//						每次给2个建议，建议用英文的逗号分隔。建议输出的格式为：
+//						...
+//						建议1,建议2
+//						...
+//						请讲中文。
+//						今天的日期是 {current_date}.
+//					""")
+//				.defaultAdvisors(
+//						new PromptChatMemoryAdvisor(chatMemory), // Chat Memory
+//						// new VectorStoreChatMemoryAdvisor(vectorStore)),
+//
+//						new QuestionAnswerAdvisor(vectorStore, SearchRequest.defaults()), // RAG
+//						// new QuestionAnswerAdvisor(vectorStore, SearchRequest.defaults()
+//						// 	.withFilterExpression("'documentType' == 'terms-of-service' && region in ['EU', 'US']")),
+//
+//						new LoggingAdvisor())
+//
+//				.defaultFunctions("getBookingDetails", "changeBooking", "cancelBooking") // FUNCTION CALLING
+//
+//				.build();
 		// @formatter:on
 	}
 
@@ -114,14 +119,14 @@ public class NameMasterAgent {
 			.content();
 	}
 
-	public List<String> recommend(String chatId, String userMessageContent) {
-		String recommendText = this.recommendClient.prompt()
-				.system(s -> s.param("current_date", LocalDate.now().toString()))
-				.user(userMessageContent)
-				.advisors(a -> a.param(CHAT_MEMORY_CONVERSATION_ID_KEY, chatId).param(CHAT_MEMORY_RETRIEVE_SIZE_KEY, 100))
-				.call()
-				.content();
-		return Arrays.asList(StringUtils.delimitedListToStringArray(recommendText,","));
-	}
+//	public List<String> recommend(String chatId, String userMessageContent) {
+//		String recommendText = this.recommendClient.prompt()
+//				.system(s -> s.param("current_date", LocalDate.now().toString()))
+//				.user(userMessageContent)
+//				.advisors(a -> a.param(CHAT_MEMORY_CONVERSATION_ID_KEY, chatId).param(CHAT_MEMORY_RETRIEVE_SIZE_KEY, 100))
+//				.call()
+//				.content();
+//		return Arrays.asList(StringUtils.delimitedListToStringArray(recommendText,","));
+//	}
 
 }
