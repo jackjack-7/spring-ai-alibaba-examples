@@ -1,0 +1,42 @@
+name: Build and Deploy Submodule
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    # Set up Java environment (Maven in this case)
+    - name: Set up JDK 17
+      uses: actions/setup-java@v3
+      with:
+        distribution: 'temurin'
+        java-version: '17'
+
+    # Build the specific submodule
+    - name: Build submodule
+      run: |
+        mvn clean install -pl playground-flight-booking -am
+
+    # Build Docker image for the submodule
+    - name: Build Docker image
+      run: |
+        docker build -t crpi-yzbqob8e5cxd8omc.cn-hangzhou.personal.cr.aliyuncs.com/jie7/longyouyou:latest ./spring-ai-alibaba-agent-example/playground-flight-booking
+
+    # Login to Docker Hub
+    - name: Log in to Aliyun Docker Registry
+      run: |
+        docker login --username=${{ secrets.DOCKER_USERNAME }} --password=${{ secrets.DOCKER_PASSWORD }} crpi-yzbqob8e5cxd8omc.cn-hangzhou.personal.cr.aliyuncs.com
+
+    # Push the Docker image to Docker Hub (or another registry)
+    - name: Push Docker image
+      run: |
+        docker push crpi-yzbqob8e5cxd8omc.cn-hangzhou.personal.cr.aliyuncs.com/jie7/longyouyou:latest
+
