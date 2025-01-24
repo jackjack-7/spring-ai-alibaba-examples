@@ -3,7 +3,7 @@ name: Build and Deploy Submodule
 on:
   push:
     branches:
-      - main
+      - release/namemaster
 
 jobs:
   build:
