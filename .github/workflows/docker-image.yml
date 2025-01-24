@@ -23,7 +23,7 @@ jobs:
     # Build the specific submodule
     - name: Build submodule
       run: |
-        mvn clean install -pl playground-flight-booking -am
+        mvn clean install -pl spring-ai-alibaba-agent-example/playground-flight-booking -am
 
     # Build Docker image for the submodule
     - name: Build Docker image
