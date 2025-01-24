@@ -6,7 +6,7 @@ FROM eclipse-temurin:21-jdk
 RUN mkdir -p /longyouyou
 WORKDIR /longyouyou
 ## 将后端项目的 Jar 文件，复制到镜像中
-COPY ./target/playground-flight-booking.0.0.1-SNAPSHOT.jar app.jar
+COPY ./target/playground-flight-booking-0.0.1-SNAPSHOT.jar app.jar
 
 ## 设置 TZ 时区
 ## 设置 JAVA_OPTS 环境变量，可通过 docker run -e "JAVA_OPTS=" 进行覆盖
