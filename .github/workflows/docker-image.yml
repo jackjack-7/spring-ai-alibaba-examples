@@ -33,7 +33,7 @@ jobs:
     # Login to Docker Hub
     - name: Log in to Aliyun Docker Registry
       run: |
-        docker login --username=${{ secrets.ALIYUN_DOCKER_REGISTRY_USERNAME }} --password=${{ secrets.ALIYUN_DOCKER_REGISTRY_PASSWORD }} crpi-yzbqob8e5cxd8omc.cn-hangzhou.personal.cr.aliyuncs.com
+        docker login --username=${{ secrets.DOCKER_REGISTRY_USERNAME }} --password=${{ secrets.DOCKER_REGISTRY_PASSWORD }} crpi-yzbqob8e5cxd8omc.cn-hangzhou.personal.cr.aliyuncs.com
 
     # Push the Docker image to Docker Hub (or another registry)
     - name: Push Docker image
