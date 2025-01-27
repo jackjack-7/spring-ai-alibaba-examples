@@ -53,7 +53,7 @@ jobs:
           username: ${{ secrets.ALIYUN_ECS_USER }}
           key: ${{ secrets.ALIYUN_ECS_SSH_KEY }}
           script: |
-            echo "${{ secrets.DOCKER_REGISTRY_PASSWORD }}" | docker login --username "${{ secrets.DOCKER_REGISTRY_USERNAME }}" --password-stdin crpi-yzbqob8e5cxd8omc.cn-hangzhou.personal.cr.aliyuncs.com
+            echo "${{ secrets.DOCKER_REGISTRY_PASSWORD }}" | sudo docker login --username "${{ secrets.DOCKER_REGISTRY_USERNAME }}" --password-stdin crpi-yzbqob8e5cxd8omc.cn-hangzhou.personal.cr.aliyuncs.com
             sudo docker pull crpi-yzbqob8e5cxd8omc.cn-hangzhou.personal.cr.aliyuncs.com/jie7/longyouyou:latest
             sudo docker stop longyouyou || true
             sudo docker rm longyouyou || true
