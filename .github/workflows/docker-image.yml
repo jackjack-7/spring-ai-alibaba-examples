@@ -57,4 +57,7 @@ jobs:
             sudo docker pull crpi-yzbqob8e5cxd8omc.cn-hangzhou.personal.cr.aliyuncs.com/jie7/longyouyou:latest
             sudo docker stop longyouyou || true
             sudo docker rm longyouyou || true
-            sudo docker run -d --name longyouyou -p 40081:40081 crpi-yzbqob8e5cxd8omc.cn-hangzhou.personal.cr.aliyuncs.com/jie7/longyouyou:latest
+            sudo docker run -d --name longyouyou -p 40081:40081 \
+              -e DASHSCOPE_API_KEY=${{ secrets.DASHSCOPE_API_KEY }} \
+              -e OPENAI_API_KEY=${{ secrets.OPENAI_API_KEY }} \
+              crpi-yzbqob8e5cxd8omc.cn-hangzhou.personal.cr.aliyuncs.com/jie7/longyouyou:latest
