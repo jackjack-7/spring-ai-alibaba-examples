@@ -24,9 +24,12 @@ import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.ai.chat.client.advisor.PromptChatMemoryAdvisor;
 import org.springframework.ai.chat.client.advisor.QuestionAnswerAdvisor;
 import org.springframework.ai.chat.memory.ChatMemory;
+import org.springframework.ai.chat.model.ChatModel;
 import org.springframework.ai.vectorstore.SearchRequest;
 import org.springframework.ai.vectorstore.VectorStore;
 import org.springframework.stereotype.Service;
+
+import com.alibaba.cloud.ai.dashscope.chat.DashScopeChatModel;
 
 import static org.springframework.ai.chat.client.advisor.AbstractChatMemoryAdvisor.CHAT_MEMORY_CONVERSATION_ID_KEY;
 import static org.springframework.ai.chat.client.advisor.AbstractChatMemoryAdvisor.CHAT_MEMORY_RETRIEVE_SIZE_KEY;
@@ -39,10 +42,10 @@ public class CustomerSupportAssistant {
 
 	private final ChatClient chatClient;
 
-	public CustomerSupportAssistant(ChatClient.Builder modelBuilder, VectorStore vectorStore, ChatMemory chatMemory) {
+	public CustomerSupportAssistant(DashScopeChatModel chatModel, VectorStore vectorStore, ChatMemory chatMemory) {
 
 		// @formatter:off
-		this.chatClient = modelBuilder
+		this.chatClient = ChatClient.builder(chatModel)
 				.defaultSystem("""
 						您是“Funnair”航空公司的客户聊天支持代理。请以友好、乐于助人且愉快的方式来回复。
 						您正在通过在线聊天系统与客户互动。
@@ -60,7 +63,7 @@ public class CustomerSupportAssistant {
 						new PromptChatMemoryAdvisor(chatMemory), // Chat Memory
 						// new VectorStoreChatMemoryAdvisor(vectorStore)),
 					
-						new QuestionAnswerAdvisor(vectorStore, SearchRequest.defaults()), // RAG
+						// new QuestionAnswerAdvisor(vectorStore, SearchRequest.defaults()), // RAG
 						// new QuestionAnswerAdvisor(vectorStore, SearchRequest.defaults()
 						// 	.withFilterExpression("'documentType' == 'terms-of-service' && region in ['EU', 'US']")),
 						
