@@ -1,47 +1,24 @@
-# Spring AI Alibaba Example
+# Spring AI Alibaba Examples
 
-> Spring AI Alibaba Example.
+> Spring AI Alibaba Repo: https://github.com/alibaba/spring-ai-alibaba
+>
+> Spring AI Alibaba Website:  https://java2ai.com
+>
+> Spring AI Alibaba Website Repo: https://github.com/springaialibaba/spring-ai-alibaba-website
 
-## Introduce
+[English](./README-en.md) | 中文
 
-This repository contains many examples to introduce various uses of Spring AI Alibaba from basic to advanced and best practices for AI projects.
-For a more detailed introduction, please refer to the README.md in each sub-project and [Spring AI Alibaba official website](https://java2ai.com).
+## 介绍
 
-## How to participate
+此仓库中包含许多 Example 模块项目来介绍 Spring AI 和 Spring AI Alibaba 从基础到高级的各种用法和 AI 项目的最佳实践。
+更详细的介绍介绍请参阅每个子项目中的 README.md 和 [Spring AI Alibaba 官网](https://java2ai.com)。
 
-We welcome contributions of any kind, including but not limited to:
+## 如何参与
 
-- Spring AI Alibaba usage examples;
-- Use of Spring AI Alibaba API;
-- Spring AI usage examples;
-- Best practices for AI projects, etc.
+我们欢迎任何形式的贡献，包括但不限于：
 
-The project warehouse is under construction, please read [Roadmap.md](./Roadmap-zh.md) for more information.
+- Spring AI 和 Spring AI Alibaba 的使用示例；
+- Spring AI  和 Spring AI Alibaba API 的使用；
+- AI 项目的最佳实践 等。
 
-## Project Structure
-
-In this example project, we combine modules according to the way of function, and strive to modularize the functions of each example to make it easier for everyone to find and use. An example of a basic module is as follows:
-
-```text
-|-spring-ai-alibaba-chat-example
-|-- dashscope-chat
-|----dashscope-chat-model
-|------ src
-|------ README.md
-|------ pom.xml
-|----dashscope-chat-client
-|------ src
-|------ README.md
-|------ pom.xml
-|-- ollama-chat
-|----ollama-chat-model
-|------ src
-|------ README.md
-|------ pom.xml
-|----ollama-chat-client
-|------ src
-|------ README.md
-|------ pom.xml
-|-- ...... (other LLMs)
-|- ......(other Examples)
-```
+项目已经初步建设完成，接下来会根据主干仓库的变更来添加和删除一些 Example 示例，如果想参与贡献，一起建设，请关注 Spring AI Alibaba 了解更多信息 🎉。

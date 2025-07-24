@@ -16,13 +16,16 @@
 
 package com.alibaba.cloud.ai.observationhandlerexample.controller;
 
+import com.alibaba.cloud.ai.dashscope.api.DashScopeApi;
+import com.alibaba.cloud.ai.dashscope.chat.DashScopeChatModel;
 import com.alibaba.cloud.ai.observationhandlerexample.observationHandler.CustomerObservationHandler;
 import io.micrometer.observation.ObservationRegistry;
-import org.springframework.ai.ollama.OllamaChatModel;
-import org.springframework.ai.ollama.api.OllamaApi;
-import org.springframework.ai.ollama.api.OllamaOptions;
+
+
+import org.springframework.core.env.Environment;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -30,19 +33,24 @@ import org.springframework.web.bind.annotation.RestController;
  * @Date: 2024/12/31
  */
 @RestController
-@RequestMapping("/chat")
+@RequestMapping("/custom/observation/chat")
 public class ChatModelController {
 
-    @RequestMapping(value = "test", method = RequestMethod.GET)
-    public String add(String message) {
-        ObservationRegistry registry = ObservationRegistry.create();
-        registry.observationConfig().observationHandler(new CustomerObservationHandler());
-        OllamaChatModel ollamaChatModel = new OllamaChatModel(
-                new OllamaApi(),
-                new OllamaOptions().withModel("qwen2.5"),
-                null,
-                null,
-                registry);
-        return ollamaChatModel.call(message);
+    private final DashScopeChatModel dashScopeChatModel;
+
+    public ChatModelController(Environment environment, ObservationRegistry observationRegistry) {
+        observationRegistry.observationConfig().observationHandler(new CustomerObservationHandler()) ;
+        String dashscopeApiKey = environment.getProperty("spring.ai.dashscope.api-key");
+        this.dashScopeChatModel = DashScopeChatModel.builder()
+                .dashScopeApi(DashScopeApi.builder().apiKey(dashscopeApiKey).build())
+                .observationRegistry(observationRegistry)
+                .build();
     }
+
+
+    @GetMapping
+    public String chat(@RequestParam(name = "message", defaultValue = "hi") String message) {
+        return dashScopeChatModel.call(message);
+    }
+
 }

@@ -16,15 +16,15 @@
 </dependency>
 
 <dependency>
-<groupId>com.alibaba.cloud.ai</groupId>
-<artifactId>spring-ai-alibaba-starter</artifactId>
-<version>${spring-ai-alibaba.version}</version>
+	<groupId>com.alibaba.cloud.ai</groupId>
+	<artifactId>spring-ai-alibaba-starter-dashscope</artifactId>
+	<version>${spring-ai-alibaba.version}</version>
 </dependency>
 
 <dependency>
-<groupId>org.bytedeco</groupId>
-<artifactId>javacv-platform</artifactId>
-<version>1.5.9</version>
+	<groupId>org.bytedeco</groupId>
+	<artifactId>javacv-platform</artifactId>
+	<version>1.5.9</version>
 </dependency>
 ```
 
@@ -70,7 +70,7 @@ public String image(
 		)
 		).call().chatResponse();
 
-		return response.getResult().getOutput().getContent();
+		return response.getResult().getOutput().getText();
 		}
 ```
 
@@ -212,7 +212,7 @@ public String video(
             )
     ).call().chatResponse();
 
-    return response.getResult().getOutput().getContent();
+    return response.getResult().getOutput().getText();
 }
 ```
 

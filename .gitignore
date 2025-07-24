@@ -34,3 +34,12 @@ target/
 
 # node_modules
 **/node_modules
+
+**/node/**
+**/logs/**
+
+logs/
+**/.db/*
+
+spring-ai-alibaba-multi-model-example/dashscope-multi-model/src/main/resources/multimodel/frame/*.png
+
