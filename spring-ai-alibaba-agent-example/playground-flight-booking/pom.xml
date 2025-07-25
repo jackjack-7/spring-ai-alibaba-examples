@@ -26,6 +26,7 @@
 		<version>${revision}</version>
 		<relativePath>../pom.xml</relativePath>
 	</parent>
+	<groupId>com.alibaba.cloud.ai</groupId>
 	<artifactId>playground-flight-booking</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>playground-flight-booking-example</name>
@@ -33,20 +34,29 @@
 
 	<properties>
 		<java.version>17</java.version>
+		<lombok.version>1.18.34</lombok.version>
 		<vaadin.version>24.4.7</vaadin.version>
+		<maven-deploy-plugin.version>3.1.1</maven-deploy-plugin.version>
 	</properties>
+
+	<dependencyManagement>
+		<dependencies>
+
+		</dependencies>
+	</dependencyManagement>
 
 	<dependencies>
 		<dependency>
 			<groupId>com.alibaba.cloud.ai</groupId>
-			<artifactId>spring-ai-alibaba-starter-dashscope</artifactId>
+			<artifactId>spring-ai-alibaba-starter</artifactId>
+			<version>1.0.0-M3.3</version>
 		</dependency>
+
 
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-thymeleaf</artifactId>
 		</dependency>
-
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-validation</artifactId>
@@ -65,8 +75,10 @@
 		</dependency>
 
 		<dependency>
-			<groupId>org.springframework.ai</groupId>
-			<artifactId>spring-ai-advisors-vector-store</artifactId>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<version>${lombok.version}</version>
+			<scope>provided</scope>
 		</dependency>
 	</dependencies>
 
@@ -78,21 +90,15 @@
 				<artifactId>spring-boot-maven-plugin</artifactId>
 				<configuration>
 					<jvmArguments>-Xdebug
-						-Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=5247
-					</jvmArguments>
+						-Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=5247</jvmArguments>
 					<wait>500</wait>
 					<maxAttempts>240</maxAttempts>
-					<executable>true</executable>
-					<layout>JAR</layout>
 				</configuration>
 				<executions>
 					<execution>
 						<goals>
-							<goal>repackage</goal>
+							<goal>repackage</goal> <!-- 将引入的 jar 打入其中 -->
 						</goals>
-						<configuration>
-							<attach>false</attach>
-						</configuration>
 					</execution>
 				</executions>
 			</plugin>
@@ -111,12 +117,22 @@
 				<configuration>
 					<source>17</source>
 					<target>17</target>
+					<annotationProcessorPaths>
+						<path>
+							<groupId>org.projectlombok</groupId>
+							<artifactId>lombok</artifactId>
+							<version>${lombok.version}</version>
+						</path>
+					</annotationProcessorPaths>
 				</configuration>
 			</plugin>
 		</plugins>
 	</build>
 
+
+
 	<repositories>
+
 		<repository>
 			<id>spring-milestones</id>
 			<name>Spring Milestones</name>
@@ -126,6 +142,10 @@
 			</snapshots>
 		</repository>
 	</repositories>
+
+	<pluginRepositories>
+
+	</pluginRepositories>
 
 	<profiles>
 		<profile>
@@ -215,5 +235,4 @@
 			</build>
 		</profile>
 	</profiles>
-
 </project>
