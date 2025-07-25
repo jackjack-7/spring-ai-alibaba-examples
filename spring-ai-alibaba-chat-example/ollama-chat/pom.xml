@@ -12,15 +12,8 @@
 	</parent>
 
 	<artifactId>ollama-chat</artifactId>
-	<packaging>pom</packaging>
-
 	<description>Spring AI Alibaba Ollama Chat Example</description>
 	<name>Spring AI Alibaba Ollama Chat Examples</name>
-
-	<modules>
-		<module>ollama-chat-model</module>
-		<module>ollama-chat-client</module>
-	</modules>
 
 	<dependencies>
 		<dependency>
@@ -30,7 +23,7 @@
 
 		<dependency>
 			<groupId>org.springframework.ai</groupId>
-			<artifactId>spring-ai-ollama-spring-boot-starter</artifactId>
+			<artifactId>spring-ai-starter-model-ollama</artifactId>
 		</dependency>
 	</dependencies>
 

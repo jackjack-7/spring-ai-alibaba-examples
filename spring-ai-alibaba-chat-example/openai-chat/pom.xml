@@ -29,8 +29,6 @@
     </parent>
 
     <artifactId>openai-chat</artifactId>
-    <packaging>pom</packaging>
-
     <description>Spring AI Alibaba OpenAI Chat Example</description>
     <name>Spring AI Alibaba OpenAI Chat Examples</name>
 
@@ -42,14 +40,9 @@
 
         <dependency>
             <groupId>org.springframework.ai</groupId>
-            <artifactId>spring-ai-openai-spring-boot-starter</artifactId>
+            <artifactId>spring-ai-starter-model-openai</artifactId>
         </dependency>
     </dependencies>
-
-    <modules>
-        <module>openai-chat-model</module>
-        <module>openai-chat-client</module>
-    </modules>
 
     <build>
         <plugins>
